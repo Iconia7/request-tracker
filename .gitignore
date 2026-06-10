@@ -1,0 +1,27 @@
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# Environment / secrets (never commit these)
+.env
+.env.*
+*.pem
+*.key
+
+# Local dev server artifacts
+node_modules/
+.cache/
+dist/
+
+# Deployment temp files
+*.tar.gz
+*.zip
+deploy.sh.bak

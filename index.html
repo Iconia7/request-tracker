@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta -->
+  <title>Request Tracker — Submit &amp; Manage Requests</title>
+  <meta name="description" content="Submit and track bugs, feature requests, feedback, partnerships, and ideas. A simple, clean request tracking tool." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#F2F0EB" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Request Tracker" />
+  <meta property="og:description" content="Submit and track bugs, feature requests, feedback, partnerships, and ideas." />
+  <meta property="og:image"       content="assets/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Request Tracker" />
+  <meta name="twitter:description" content="Submit and track bugs, feature requests, feedback, and ideas." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Fonts: preconnect first, then load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     APP WRAPPER
+     ============================================================ -->
+<div class="app-wrapper">
+
+  <!-- ── Header ── -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-icon" aria-hidden="true">✦</div>
+      <div class="brand-text">
+        <h1>Request Tracker</h1>
+        <p>Submit and manage requests, feedback &amp; ideas</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Stats Bar ── -->
+  <section class="stats-bar" aria-label="Summary statistics">
+    <div class="stat-card new">
+      <span class="stat-label">New</span>
+      <span class="stat-value" id="stat-new">0</span>
+    </div>
+    <div class="stat-card review">
+      <span class="stat-label">In Review</span>
+      <span class="stat-value" id="stat-review">0</span>
+    </div>
+    <div class="stat-card resolved">
+      <span class="stat-label">Resolved</span>
+      <span class="stat-value" id="stat-resolved">0</span>
+    </div>
+    <div class="stat-card rejected">
+      <span class="stat-label">Rejected</span>
+      <span class="stat-value" id="stat-rejected">0</span>
+    </div>
+  </section>
+
+  <!-- ── Main Grid: Form + List ── -->
+  <div class="main-grid">
+
+    <!-- ════════════════════════════════
+         SUBMIT FORM
+         ════════════════════════════════ -->
+    <aside>
+      <div class="form-panel" role="complementary" aria-label="Submit a new request">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <span class="icon">✦</span> New Request
+          </h2>
+          <p class="panel-subtitle">Fill in the fields below and click Submit.</p>
+        </div>
+
+        <form id="request-form" novalidate>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label class="form-label" for="name">
+              Name <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your full name"
+              autocomplete="name"
+            />
+            <p class="field-error" id="name-error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">
+              Email <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+            <p class="field-error" id="email-error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <!-- Product / Company -->
+          <div class="form-group">
+            <label class="form-label" for="product">
+              Product / Company <span class="required" aria-label="required">*</span>
+            </label>
+            <select class="form-select" id="product" name="product">
+              <option value="" disabled selected>Select a product…</option>
+              <option value="Photomed">Photomed</option>
+              <option value="General">General</option>
+              <option value="Other">Other</option>
+            </select>
+            <p class="field-error" id="product-error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <!-- Type + Priority (two-column) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="type">
+                Type <span class="required" aria-label="required">*</span>
+              </label>
+              <select class="form-select" id="type" name="type">
+                <option value="" disabled selected>Select…</option>
+                <option value="Bug">Bug</option>
+                <option value="Feature Request">Feature Request</option>
+                <option value="General Feedback">General Feedback</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Other">Other</option>
+              </select>
+              <p class="field-error" id="type-error" role="alert" aria-live="polite"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="priority">
+                Priority <span class="required" aria-label="required">*</span>
+              </label>
+              <select class="form-select" id="priority" name="priority">
+                <option value="" disabled selected>Select…</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+              <p class="field-error" id="priority-error" role="alert" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label class="form-label" for="message">
+              Message <span class="required" aria-label="required">*</span>
+            </label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              name="message"
+              placeholder="Describe your request in detail…"
+              rows="4"
+            ></textarea>
+            <p class="field-error" id="message-error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <button class="btn-submit" type="submit" id="btn-submit">
+            <span>✦</span> Submit Request
+          </button>
+
+        </form>
+      </div>
+    </aside>
+
+    <!-- ════════════════════════════════
+         REQUESTS LIST
+         ════════════════════════════════ -->
+    <main class="requests-panel" aria-label="Request list">
+
+      <!-- Controls: Search + Filters -->
+      <div class="controls-bar" role="search" aria-label="Filter and search requests">
+        <div class="controls-top">
+          <div class="search-wrapper">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input
+              class="search-input"
+              type="search"
+              id="search-input"
+              placeholder="Search by name, email, or message…"
+              aria-label="Search requests"
+            />
+          </div>
+        </div>
+
+        <div class="controls-filters">
+          <span class="filter-label">Filter by:</span>
+
+          <select class="filter-select" id="filter-status" aria-label="Filter by status">
+            <option value="">All Statuses</option>
+            <option value="New">New</option>
+            <option value="In Review">In Review</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+
+          <select class="filter-select" id="filter-type" aria-label="Filter by type">
+            <option value="">All Types</option>
+            <option value="Bug">Bug</option>
+            <option value="Feature Request">Feature Request</option>
+            <option value="General Feedback">General Feedback</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <select class="filter-select" id="filter-priority" aria-label="Filter by priority">
+            <option value="">All Priorities</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+
+          <button class="btn-clear-filters" id="btn-clear-filters" type="button">
+            ✕ Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Sort + Count -->
+      <div class="list-meta">
+        <span class="result-count" id="result-count" aria-live="polite"></span>
+        <div class="sort-group">
+          <label class="filter-label" for="sort-select">Sort:</label>
+          <select class="filter-select" id="sort-select" aria-label="Sort order">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div id="requests-list" class="requests-list" role="list" aria-label="Submitted requests"></div>
+
+      <!-- Empty state -->
+      <div id="empty-state" class="empty-state" style="display:none;" aria-live="polite">
+        <div class="empty-icon" aria-hidden="true">📭</div>
+        <h3 class="empty-title">No requests yet</h3>
+        <p class="empty-desc">Fill in the form to submit your first request.</p>
+      </div>
+
+    </main>
+  </div><!-- /.main-grid -->
+</div><!-- /.app-wrapper -->
+
+<!-- ============================================================
+     TOAST NOTIFICATION CONTAINER
+     ============================================================ -->
+<div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ============================================================
+     CONFIRM DELETE DIALOG
+     ============================================================ -->
+<div id="dialog-backdrop" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+  <div class="dialog-box">
+    <div class="dialog-icon" aria-hidden="true">🗑</div>
+    <h2 class="dialog-title" id="dialog-title">Delete Request?</h2>
+    <p class="dialog-desc">
+      This action cannot be undone. The request will be permanently removed from the tracker.
+    </p>
+    <div class="dialog-actions">
+      <button class="btn-cancel" id="dialog-cancel" type="button">Cancel</button>
+      <button class="btn-danger" id="dialog-delete" type="button">Yes, Delete</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
